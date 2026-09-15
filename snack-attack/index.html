@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snack Attack 🍕</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#202020;--cream:#fff8ed;--paper:#fffdf8;--accent:#ff7a45;--yellow:#ffd45c}
+body{margin:0;background:linear-gradient(135deg,#fff8ed,#ffe9d6);font-family:Arial,Helvetica,sans-serif;color:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+button{font:inherit;border:0;cursor:pointer}
+#app{width:min(980px,96vw);height:min(760px,96vh);position:relative}
+.screen{display:none;width:100%;height:100%;background:var(--paper);border:4px solid var(--ink);border-radius:28px;box-shadow:10px 10px 0 #202020;overflow:hidden}
+.screen.active{display:flex}
+#home,#select{flex-direction:column;align-items:center;justify-content:center;padding:30px}
+.logo{font-size:clamp(42px,8vw,82px);font-weight:1000;letter-spacing:-4px;text-shadow:5px 5px 0 var(--yellow);margin:0 0 8px}
+.subtitle{font-size:20px;margin:0 0 32px;color:#555}
+.bigbtn{background:var(--accent);color:white;border:3px solid var(--ink);border-radius:16px;padding:15px 30px;font-weight:900;font-size:21px;box-shadow:5px 5px 0 var(--ink);margin:8px;transition:.12s}
+.bigbtn:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 var(--ink)}
+.smallnote{font-size:13px;color:#777;margin-top:18px}
+#select h2{font-size:34px;margin:0 0 8px}
+#characters{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;width:100%;max-width:800px;margin:20px 0}
+.char{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:15px 8px;text-align:center;box-shadow:4px 4px 0 #ddd;position:relative}
+.char.selected{background:#fff0df;outline:4px solid var(--accent)}
+.char.locked{filter:grayscale(1);opacity:.55}
+.char .face{font-size:52px}
+.char b{display:block;margin-top:4px}
+.char span{font-size:12px;color:#666}
+.lock{position:absolute;right:7px;top:7px}
+#game{position:relative;flex-direction:column;background:#f4e6d4}
+#hud{height:76px;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:#fffdf8;border-bottom:3px solid var(--ink);z-index:10}
+.hudbox{font-weight:900;font-size:17px}.hudbox span{background:#fff0df;border:2px solid var(--ink);padding:7px 10px;border-radius:10px;margin-left:4px}
+#arena{position:relative;flex:1;overflow:hidden;background:linear-gradient(#dff4ff 0%,#f8fbff 65%,#d9efcf 65%,#b8dcaa 100%)}
+.cloud{position:absolute;font-size:55px;opacity:.55;animation:float 8s ease-in-out infinite}
+.c1{left:8%;top:8%}.c2{right:12%;top:18%;animation-delay:-3s}.c3{left:47%;top:4%;font-size:38px}
+@keyframes float{50%{transform:translateX(22px)}}
+#player{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);width:78px;height:78px;border:3px solid var(--ink);border-radius:24px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:52px;box-shadow:0 5px 0 #333;z-index:5;user-select:none}
+.item{position:absolute;display:flex;align-items:center;justify-content:center;font-size:38px;user-select:none;z-index:4;will-change:transform}
+.pop{position:absolute;font-weight:1000;font-size:22px;pointer-events:none;animation:pop .65s ease-out forwards;z-index:20}
+@keyframes pop{0%{opacity:1;transform:translateY(0) scale(.8)}100%{opacity:0;transform:translateY(-45px) scale(1.2)}}
+#message{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);background:#fffdf8;border:4px solid var(--ink);border-radius:20px;padding:24px 32px;text-align:center;box-shadow:7px 7px 0 var(--ink);z-index:30;display:none;min-width:260px}
+#message h2{margin:0 0 8px;font-size:32px}.hidden{display:none!important}
+#bar{position:absolute;left:18px;right:18px;bottom:10px;height:9px;border:2px solid var(--ink);background:white;border-radius:20px;overflow:hidden;z-index:9}
+#fill{height:100%;width:0;background:var(--accent);transition:.15s}
+@media(max-width:700px){#characters{grid-template-columns:repeat(3,1fr)}.char:nth-child(4),.char:nth-child(5){display:none}.hudbox{font-size:13px}.hudbox span{padding:5px}.logo{font-size:55px}}
+</style>
+</head>
+<body>
+<div id="app">
+<section id="home" class="screen active">
+<h1 class="logo">SNACK ATTACK 🍕</h1>
+<p class="subtitle">Catch the snacks. Dodge the junk.</p>
+<button class="bigbtn" id="playBtn">PLAY</button>
+<button class="bigbtn" id="charsBtn" style="background:#202020">CHARACTERS</button>
+<p class="smallnote">Move with ← → or A / D</p>
+</section>
+
+<section id="select" class="screen">
+<h2>Choose Your Snack Catcher</h2>
+<p class="subtitle" style="font-size:15px;margin-bottom:4px">Unlock more characters by reaching new levels.</p>
+<div id="characters"></div>
+<div>
+<button class="bigbtn" id="backBtn" style="background:#202020">BACK</button>
+<button class="bigbtn" id="startBtn">START</button>
+</div>
+</section>
+
+<section id="game" class="screen">
+<div id="hud">
+<div class="hudbox">LEVEL <span id="levelTxt">1</span></div>
+<div class="hudbox">SCORE <span id="scoreTxt">0</span>/<span id="goalTxt">20</span></div>
+<div class="hudbox">❤️ <span id="livesTxt">3</span></div>
+</div>
+<div id="arena">
+<div class="cloud c1">☁️</div><div class="cloud c2">☁️</div><div class="cloud c3">☁️</div>
+<div id="player">🐱</div><div id="bar"><div id="fill"></div></div>
+<div id="message"><h2 id="msgTitle"></h2><p id="msgBody"></p><button class="bigbtn" id="msgBtn">CONTINUE</button></div>
+</div>
+</section>
+</div>
+
+<script>
+const chars=[
+{name:"Milo",emoji:"🐱",unlock:1},
+{name:"Larry",emoji:"🐸",unlock:3},
+{name:"Benny",emoji:"🐰",unlock:5},
+{name:"Bamboo",emoji:"🐼",unlock:8},
+{name:"Foxy",emoji:"🦊",unlock:10}
+];
+const good=["🍕","🍔","🍎","🍓","🍩","🍪","🍉","🧁"];
+const bad=["🗑️","👟","🧦","🪨","🧽","📚","🥫"];
+const specials=["⭐","💖","⚡"];
+const levels=[
+{goal:20,speed:2.1,spawn:800,bad:.16},
+{goal:30,speed:2.5,spawn:720,bad:.22},
+{goal:40,speed:2.9,spawn:650,bad:.27},
+{goal:50,speed:3.3,spawn:590,bad:.31,drift:true},
+{goal:65,speed:3.7,spawn:540,bad:.34,drift:true},
+{goal:80,speed:4.1,spawn:500,bad:.37,drift:true},
+{goal:95,speed:4.5,spawn:460,bad:.40,drift:true},
+{goal:110,speed:4.9,spawn:425,bad:.43,drift:true},
+{goal:130,speed:5.3,spawn:390,bad:.46,drift:true},
+{goal:150,speed:5.8,spawn:350,bad:.49,drift:true}
+];
+
+let level=1,score=0,lives=3,selected=0,playing=false,keys={},last=0,spawnTimer=0,speedBoost=0;
+const $=id=>document.getElementById(id);
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));$(id).classList.add("active")}
+function renderChars(){
+ $("characters").innerHTML=chars.map((c,i)=>{
+   const unlocked=level>=c.unlock;
+   return `<button class="char ${unlocked?"":"locked"} ${selected===i?"selected":""}" data-i="${i}">
+   <div class="face">${c.emoji}</div><b>${c.name}</b><span>${unlocked?"Unlocked":"Level "+c.unlock}</span>${unlocked?"":"<div class='lock'>🔒</div>"}</button>`
+ }).join("");
+ document.querySelectorAll(".char").forEach(b=>b.onclick=()=>{let i=+b.dataset.i;if(level>=chars[i].unlock){selected=i;renderChars()}});
+}
+function openSelect(){renderChars();show("select")}
+$("playBtn").onclick=openSelect;
+$("charsBtn").onclick=openSelect;
+$("backBtn").onclick=()=>show("home");
+$("startBtn").onclick=()=>startGame();
+
+function startGame(){
+ score=0;lives=3;level=Math.max(1,level);speedBoost=0;playing=true;show("game");$("player").textContent=chars[selected].emoji;clearItems();updateHud();last=performance.now();spawnTimer=0;requestAnimationFrame(loop)
+}
+function updateHud(){
+ const L=levels[level-1];$("levelTxt").textContent=level;$("scoreTxt").textContent=score;$("goalTxt").textContent=L.goal;$("livesTxt").textContent=lives;
+ $("fill").style.width=Math.min(100,score/L.goal*100)+"%";
+}
+function clearItems(){document.querySelectorAll(".item").forEach(e=>e.remove())}
+function spawn(){
+ const L=levels[level-1], r=Math.random(), isSpecial=r<.08 && level>=3;
+ const el=document.createElement("div");el.className="item";
+ let type,emoji,value;
+ if(isSpecial){type="special";emoji=specials[Math.floor(Math.random()*specials.length)];value=emoji}
+ else if(Math.random()<L.bad){type="bad";emoji=bad[Math.floor(Math.random()*bad.length)];value=emoji}
+ else {type="good";emoji=good[Math.floor(Math.random()*good.length)];value=emoji}
+ el.textContent=value;
+ const size=level>=3?30+Math.random()*22:42;
+ el.style.width=size+"px";el.style.height=size+"px";
+ const arena=$("arena"), maxX=arena.clientWidth-size;
+ el.x=10+Math.random()*Math.max(10,maxX-20);el.y=-55;el.v=L.speed*(.85+Math.random()*.35);
+ el.drift=L.drift?(Math.random()<.5?-1:1)*(0.25+Math.random()*.5):0;
+ el.type=type;el.style.left=el.x+"px";el.style.top=el.y+"px";el.style.fontSize=size*.8+"px";
+ arena.appendChild(el)
+}
+function pop(text,x,y){
+ const p=document.createElement("div");p.className="pop";p.textContent=text;p.style.left=x+"px";p.style.top=y+"px";$("arena").appendChild(p);setTimeout(()=>p.remove(),650)
+}
+function hit(a,b){
+ const ar=a.getBoundingClientRect(),br=b.getBoundingClientRect();
+ return !(ar.right<br.left+7||ar.left>br.right-7||ar.bottom<br.top+7||ar.top>br.bottom-7)
+}
+function loop(t){
+ if(!playing)return;
+ const dt=Math.min(32,t-last);last=t;
+ const arena=$("arena"),p=$("player"),L=levels[level-1];
+ let dx=0;if(keys.ArrowLeft||keys.a)dx=-1;if(keys.ArrowRight||keys.d)dx=1;
+ let px=parseFloat(p.dataset.x||arena.clientWidth/2-39);const boost=speedBoost>0?1.65:1;
+ px+=dx*0.65*dt*boost;px=Math.max(4,Math.min(arena.clientWidth-82,px));p.style.left=px+"px";p.dataset.x=px;
+ speedBoost=Math.max(0,speedBoost-dt);
+ spawnTimer+=dt;
+ if(spawnTimer>=L.spawn){spawn();spawnTimer=0}
+ document.querySelectorAll(".item").forEach(el=>{
+   el.y+=el.v*dt/16.67;el.x+=el.drift*dt/16.67;
+   if(el.x<3||el.x>arena.clientWidth-50)el.drift*=-1;
+   el.style.top=el.y+"px";el.style.left=el.x+"px";
+   if(hit(el,p)){
+     const rect=el.getBoundingClientRect(),ar=arena.getBoundingClientRect();el.remove();
+     if(el.type==="good"){score+=1;pop("+1",rect.left-ar.left,rect.top-ar.top)}
+     else if(el.type==="bad"){lives--;pop("OUCH!",rect.left-ar.left,rect.top-ar.top);if(lives<=0){endGame(false);return}}
+     else if(el.textContent==="⭐"){score+=5;pop("+5 ⭐",rect.left-ar.left,rect.top-ar.top)}
+     else if(el.textContent==="💖"){lives=Math.min(3,lives+1);pop("+1 ❤️",rect.left-ar.left,rect.top-ar.top)}
+     else if(el.textContent==="⚡"){speedBoost=5000;pop("SPEED!",rect.left-ar.left,rect.top-ar.top)}
+     updateHud()
+   } else if(el.y>arena.clientHeight+60)el.remove();
+ });
+ if(score>=L.goal){endGame(true);return}
+ updateHud();requestAnimationFrame(loop)
+}
+function endGame(won){
+ playing=false;clearItems();
+ if(won){
+   if(level<10){level++;renderChars();showMessage("LEVEL COMPLETE! 🎉","Nice! You unlocked the next level.","NEXT LEVEL")}
+   else showMessage("YOU BEAT SNACK ATTACK! 🏆","You completed all 10 levels!","PLAY AGAIN")
+ }else showMessage("GAME OVER 😵","The snacks got the best of you.","TRY AGAIN")
+}
+function showMessage(title,body,btn){
+ $("msgTitle").textContent=title;$("msgBody").textContent=body;$("msgBtn").textContent=btn;$("message").style.display="block";
+ $("msgBtn").onclick=()=>{
+   $("message").style.display="none";
+   if(title==="GAME OVER 😵"){score=0;lives=3;startGame()}
+   else if(level>10){level=1;score=0;lives=3;startGame()}
+   else startGame()
+ }
+}
+window.addEventListener("keydown",e=>{if(["ArrowLeft","ArrowRight","a","d"].includes(e.key)){keys[e.key]=true;e.preventDefault()}});
+window.addEventListener("keyup",e=>keys[e.key]=false);
+renderChars();
+</script>
+</body>
+</html>
