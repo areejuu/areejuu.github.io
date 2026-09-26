@@ -1,10 +1,29 @@
-# Hi, I'm Areej
+# Project Hub
 
-This is where everything I build lives.
+## Websites & Games
 
-## What I'm into
-- Technology
-- Design
+Welcome! Explore the projects below.
 
-## What I'm working on right now
-Snack Attack, a browser game where you catch good food and avoid bad objects.
+## ChromaWear
+
+Daily outfit color inspiration and aesthetic palettes.
+
+Explore outfit color combinations, search submissions, filter by style or occasion, sort combinations, and add your own.
+
+[Explore ChromaWear](CHROMAWEAR-LINK)
+
+## Snack Attack
+
+Catch the snacks. Dodge the junk.
+
+Catch good food, avoid bad objects, earn points, and unlock new characters as you progress through 10 levels.
+
+[Play Snack Attack](SNACK-ATTACK-LINK)
+
+## What You Can Do
+
+* Explore outfit color combinations
+* Search, filter, and sort combinations
+* Add your own outfit combinations
+* Catch good food and avoid bad objects
+* Unlock new characters
