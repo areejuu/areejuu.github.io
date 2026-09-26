@@ -1,135 +1,317 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-  <title>Areej's Projects</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Projects</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
+      background: #f4eee8;
+      color: #4f4a47;
       font-family: "Trebuchet MS", Arial, sans-serif;
-      background: #f8f1f7;
-      color: #4d4652;
-      text-align: center;
+      overflow-x: hidden;
     }
 
-    .container {
-      max-width: 850px;
+    /* soft paper-like background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image:
+        radial-gradient(#d8cbc1 0.7px, transparent 0.7px);
+      background-size: 18px 18px;
+    }
+
+    .page {
+      width: min(900px, 92%);
       margin: 0 auto;
-      padding: 70px 25px;
+      padding: 55px 0 45px;
+      position: relative;
     }
 
-    .hero {
-      background: #eee4f4;
-      padding: 55px 30px;
-      border-radius: 30px;
-      box-shadow: 0 8px 25px rgba(100, 80, 110, 0.08);
+    /* little decorative pieces */
+    .doodle {
+      position: absolute;
+      color: #a89588;
+      font-size: 22px;
+      opacity: 0.75;
     }
 
-    .symbol {
-      font-size: 28px;
-      color: #a88bbd;
-      letter-spacing: 10px;
+    .doodle.one {
+      top: 45px;
+      left: 2%;
+      transform: rotate(-12deg);
+    }
+
+    .doodle.two {
+      top: 110px;
+      right: 3%;
+      transform: rotate(15deg);
+    }
+
+    .doodle.three {
+      bottom: 85px;
+      left: 5%;
+      transform: rotate(8deg);
+    }
+
+    .doodle.four {
+      bottom: 140px;
+      right: 4%;
+      transform: rotate(-10deg);
+    }
+
+    /* header */
+    .header {
+      text-align: center;
+      margin-bottom: 42px;
+    }
+
+    .tiny-title {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #9b8980;
+      margin-bottom: 13px;
     }
 
     h1 {
-      font-size: 48px;
-      margin: 15px 0 10px;
-      color: #665274;
-      font-weight: 600;
+      margin: 0;
+      font-family: Georgia, serif;
+      font-size: clamp(42px, 7vw, 64px);
+      font-weight: normal;
+      color: #625750;
+      letter-spacing: -1px;
     }
 
     .intro {
-      font-size: 18px;
-      color: #776d7d;
+      max-width: 500px;
+      margin: 14px auto 0;
+      line-height: 1.7;
+      color: #81766f;
+      font-size: 16px;
     }
 
-    .section {
-      background: #fffaf7;
-      margin-top: 25px;
-      padding: 30px;
-      border-radius: 25px;
-      box-shadow: 0 6px 20px rgba(100, 80, 110, 0.06);
+    .little-line {
+      width: 55px;
+      height: 2px;
+      background: #c8b6a9;
+      margin: 22px auto 0;
+      border-radius: 10px;
     }
 
-    h2 {
-      color: #765f83;
-      font-size: 24px;
-      margin-top: 0;
-    }
-
-    .symbols {
-      font-size: 22px;
-      margin-bottom: 12px;
+    /* projects */
+    .projects {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
     }
 
     .project {
-      background: #f3e8ef;
-      padding: 22px;
-      border-radius: 20px;
-      margin-top: 15px;
+      position: relative;
+      background: #fffaf5;
+      border: 1px solid #e6d9ce;
+      border-radius: 26px;
+      padding: 30px 27px 28px;
+      min-height: 310px;
+
+      box-shadow: 0 10px 25px rgba(91, 72, 60, 0.07);
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
     }
 
-    .project h3 {
-      margin: 5px 0 8px;
-      color: #6c5878;
-      font-size: 21px;
+    .project:nth-child(1) {
+      transform: rotate(-1deg);
+    }
+
+    .project:nth-child(2) {
+      transform: rotate(1deg);
+    }
+
+    .project:hover {
+      transform: translateY(-5px) rotate(0deg);
+      box-shadow: 0 15px 30px rgba(91, 72, 60, 0.11);
+    }
+
+    .project-number {
+      font-size: 12px;
+      color: #a49389;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .project-icon {
+      font-size: 34px;
+      margin-bottom: 12px;
+    }
+
+    .project h2 {
+      margin: 0 0 12px;
+      font-family: Georgia, serif;
+      font-size: 28px;
+      font-weight: normal;
+      color: #625750;
+    }
+
+    .project p {
+      line-height: 1.7;
+      font-size: 15px;
+      color: #776d67;
+      margin: 0;
     }
 
     .button {
       display: inline-block;
-      margin-top: 15px;
-      padding: 13px 25px;
-      background: #c8afd5;
-      color: #ffffff;
+      margin-top: 24px;
+      padding: 11px 19px;
+      border-radius: 18px;
       text-decoration: none;
-      border-radius: 30px;
-      font-weight: bold;
-      transition: 0.2s;
+      font-size: 14px;
+      color: #fffaf5;
+      transition: 0.2s ease;
+    }
+
+    .chromawear .button {
+      background: #9b8c9e;
+    }
+
+    .snack .button {
+      background: #b28b72;
     }
 
     .button:hover {
-      background: #aa8bbd;
       transform: translateY(-2px);
+      filter: brightness(0.95);
     }
 
-    footer {
-      margin-top: 30px;
-      font-size: 14px;
-      color: #938999;
+    /* bottom note */
+    .bottom-note {
+      text-align: center;
+      margin-top: 42px;
+      color: #9b8d85;
+      font-size: 13px;
+      letter-spacing: 0.5px;
     }
 
-    @media (max-width: 600px) {
-      .container {
-        padding: 35px 15px;
+    .bottom-note span {
+      margin: 0 7px;
+    }
+
+    @media (max-width: 650px) {
+      .page {
+        padding-top: 40px;
       }
 
-      h1 {
-        font-size: 36px;
+      .projects {
+        grid-template-columns: 1fr;
+        gap: 25px;
       }
 
-      .hero {
-        padding: 40px 20px;
+      .project:nth-child(1),
+      .project:nth-child(2) {
+        transform: none;
+      }
+
+      .doodle {
+        display: none;
       }
     }
   </style>
-
 </head>
 
 <body>
 
-  <div class="container">
+  <main class="page">
 
-```
-<div class="hero">
-  <div class="symbol">✿ ♡ ✦</div>
+    <div class="doodle one">✦</div>
+    <div class="doodle two">♡</div>
+    <div class="doodle three">✿</div>
+    <div class="doodle four">⌁</div>
 
-  <h1>Hi, I'm Areej!</h1>
+    <header class="header">
+      <div class="tiny-title">a little collection of things i've made</div>
 
-  <p class="intro">
-    Welcome to my little corner of the internet ♡
-  </p>
-</div>
+      <h1>My Projects</h1>
 
-<div class="s
-```
+      <p class="intro">
+        A few websites and games I've been working on.
+        Take a look around.
+      </p>
+
+      <div class="little-line"></div>
+    </header>
+
+
+    <section class="projects">
+
+      <!-- ChromaWear -->
+      <article class="project chromawear">
+
+        <div class="project-number">01</div>
+
+        <div class="project-icon">🧵</div>
+
+        <h2>ChromaWear</h2>
+
+        <p>
+          Daily outfit color inspiration and color coordinating ideas.
+          Explore combinations, find colors that work well together,
+          filter by style or occasion, and create your own.
+        </p>
+
+        <a
+          class="button"
+          href="chromawear.html"
+        >
+          Explore ChromaWear
+        </a>
+
+      </article>
+
+
+      <!-- Snack Attack -->
+      <article class="project snack">
+
+        <div class="project-number">02</div>
+
+        <div class="project-icon">🍕</div>
+
+        <h2>Snack Attack</h2>
+
+        <p>
+          Catch the snacks. Dodge the junk.
+          Catch good food, avoid bad objects, earn points,
+          and unlock new characters through 10 levels.
+        </p>
+
+        <a
+          class="button"
+          href="snack-attack/"
+        >
+          Play Snack Attack
+        </a>
+
+      </article>
+
+    </section>
+
+
+    <div class="bottom-note">
+      made with <span>♡</span> and a lot of trial and error
+    </div>
+
+  </main>
+
+</body>
+</html>
