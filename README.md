@@ -6,11 +6,11 @@ Welcome! Explore the projects below.
 
 ## ChromaWear
 
-Daily outfit color inspiration and aesthetic palettes.
+Daily outfit color inspiration and color-coordinating ideas.
 
-Explore outfit color combinations, search submissions, filter by style or occasion, sort combinations, and add your own.
+Explore different outfit color combinations, find colors that work well together, filter by style or occasion, and create your own combinations.
 
-[Explore ChromaWear](CHROMAWEAR-LINK)
+[Explore ChromaWear](https://areejuu.github.io/chromawear.html)
 
 ## Snack Attack
 
@@ -18,12 +18,13 @@ Catch the snacks. Dodge the junk.
 
 Catch good food, avoid bad objects, earn points, and unlock new characters as you progress through 10 levels.
 
-[Play Snack Attack](SNACK-ATTACK-LINK)
+[Play Snack Attack](https://areejuu.github.io/snack-attack/)
 
 ## What You Can Do
 
 * Explore outfit color combinations
+* Find colors that work well together
 * Search, filter, and sort combinations
-* Add your own outfit combinations
+* Create your own color combinations
 * Catch good food and avoid bad objects
 * Unlock new characters
