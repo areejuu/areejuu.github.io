@@ -87,4 +87,280 @@
       font-family: Georgia, serif;
       font-size: clamp(43px, 8vw, 65px);
       font-weight: normal;
-      color:
+      color: #625750;
+    }
+
+    .intro p {
+      max-width: 500px;
+      margin: 15px auto 0;
+      color: #80746e;
+      line-height: 1.7;
+    }
+
+    .wiggly-line {
+      margin: 20px auto 0;
+      width: 65px;
+      height: 8px;
+      border-top: 2px solid #bba99e;
+      border-radius: 50%;
+      transform: rotate(-3deg);
+    }
+
+    /* project cards */
+    .projects {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .project {
+      position: relative;
+      background: #fffaf5;
+      padding: 30px 27px;
+      border-radius: 25px;
+
+      /* cute imperfect border */
+      border: 2px solid #d8c8bc;
+      outline: 2px dashed #eaded5;
+      outline-offset: -8px;
+
+      box-shadow: 4px 6px 0 #dfd0c5;
+
+      transition: 0.2s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-6px) rotate(0deg);
+      box-shadow: 6px 11px 0 #d8c7ba;
+    }
+
+    .project:first-child {
+      transform: rotate(-1.2deg);
+    }
+
+    .project:last-child {
+      transform: rotate(1.2deg);
+    }
+
+    .number {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #aa978c;
+      margin-bottom: 18px;
+    }
+
+    .icon {
+      font-size: 38px;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-family: Georgia, serif;
+      font-size: 29px;
+      font-weight: normal;
+      color: #625750;
+    }
+
+    .project p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #776c66;
+      margin: 0;
+    }
+
+    /* buttons */
+    .button {
+      display: inline-block;
+      margin-top: 23px;
+      padding: 11px 18px;
+      border-radius: 17px;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 2px 3px 0 rgba(80, 65, 55, 0.15);
+      transition: 0.2s ease;
+    }
+
+    .chromawear .button {
+      background: #9d8da0;
+    }
+
+    .snack .button {
+      background: #b58c70;
+    }
+
+    .button:hover {
+      transform: translateY(-2px) rotate(-1deg);
+    }
+
+    /* little info section */
+    .more {
+      margin-top: 38px;
+      padding: 25px 28px;
+      background: #f0e6de;
+      border: 2px dashed #cdbbb0;
+      border-radius: 22px;
+      text-align: center;
+    }
+
+    .more h3 {
+      margin: 0 0 12px;
+      font-family: Georgia, serif;
+      font-size: 22px;
+      font-weight: normal;
+      color: #665b55;
+    }
+
+    .more p {
+      margin: 0;
+      color: #81756e;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* footer */
+    footer {
+      text-align: center;
+      margin-top: 35px;
+      color: #a09189;
+      font-size: 13px;
+    }
+
+    footer span {
+      margin: 0 7px;
+    }
+
+    @media (max-width: 680px) {
+      .page {
+        padding-top: 40px;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+      }
+
+      .project:first-child,
+      .project:last-child {
+        transform: none;
+      }
+
+      .sticker {
+        display: none;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <main class="page">
+
+```
+<div class="sticker one">✦</div>
+<div class="sticker two">♡</div>
+<div class="sticker three">✿</div>
+<div class="sticker four">☆</div>
+
+
+<header class="intro">
+
+  <div class="tiny">
+    a little collection of things i've made
+  </div>
+
+  <h1>My Projects</h1>
+
+  <p>
+    A few websites and games I've been working on.
+    Take a look around ♡
+  </p>
+
+  <div class="wiggly-line"></div>
+
+</header>
+
+
+<section class="projects">
+
+
+  <!-- CHROMAWEAR -->
+
+  <article class="project chromawear">
+
+    <div class="number">01</div>
+
+    <div class="icon">🧵</div>
+
+    <h2>ChromaWear</h2>
+
+    <p>
+      Daily outfit color inspiration and color coordinating ideas.
+      Explore combinations, find colors that work well together,
+      filter by style or occasion, search submissions, and create
+      your own.
+    </p>
+
+    <a
+      class="button"
+      href="chromawear.html"
+    >
+      Explore ChromaWear →
+    </a>
+
+  </article>
+
+
+  <!-- SNACK ATTACK -->
+
+  <article class="project snack">
+
+    <div class="number">02</div>
+
+    <div class="icon">🍕</div>
+
+    <h2>Snack Attack</h2>
+
+    <p>
+      Catch the snacks. Dodge the junk.
+      Catch good food, avoid bad objects, earn points,
+      and unlock new characters through 10 levels.
+    </p>
+
+    <a
+      class="button"
+      href="snack-attack/"
+    >
+      Play Snack Attack →
+    </a>
+
+  </article>
+
+
+</section>
+
+
+<section class="more">
+
+  <h3>✿ a little more ✿</h3>
+
+  <p>
+    ChromaWear is all about finding colors that work together
+    for outfits. Snack Attack is a simple browser game about
+    catching good food and avoiding junk.
+  </p>
+
+</section>
+
+
+<footer>
+  made with <span>♡</span> and a lot of trial and error
+</footer>
+```
+
+  </main>
+
+</body>
+</html>
