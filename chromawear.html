@@ -816,8 +816,8 @@
 
   <script>
     const SUPABASE_URL = "https://wgbnsfftldwpdszfnehp.supabase.co";
-    const DB_TABLE = "outfit_combos";
-    const STORAGE_KEY = "chromawear_sb_anon_key";
+const SUPABASE_KEY = "PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE";
+const DB_TABLE = "outfit_combos";
 
     // Palette & Constants
     const COLOR_HEX = {
@@ -855,30 +855,70 @@
     let rawCombos = [];
     let currentFiltered = [];
 
-    function initSupabase() {
-      const savedKey = localStorage.getItem(STORAGE_KEY);
-      const keyInput = document.getElementById('input-anon-key');
+   Yep. Let's make it **super simple**. You only replace **2 things**.
 
-      if (savedKey) {
-        keyInput.value = savedKey;
-        try {
-          supabaseClient = window.supabase.createClient(SUPABASE_URL, savedKey);
-          updateStatus(true, "Connected to Supabase");
-          fetchCombosFromSupabase();
-          return;
-        } catch (err) {
-          console.error("Supabase init error:", err);
-          updateStatus(false, "Invalid Supabase Key");
-        }
-      } else {
-        updateStatus(false, "Supabase Key Required (Click Settings)");
-        // Fallback load
-        rawCombos = [...fallbackCombos];
-        applyFiltersAndRender();
-      }
-    }
+### 1. Replace these 3 lines
 
-    function updateStatus(isConnected, message) {
+Find:
+
+```js
+const SUPABASE_URL = "https://wgbnsfftldwpdszfnehp.supabase.co";
+const DB_TABLE = "outfit_combos";
+const STORAGE_KEY = "chromawear_sb_anon_key";
+```
+
+Replace with:
+
+```js
+const SUPABASE_URL = "https://wgbnsfftldwpdszfnehp.supabase.co";
+const SUPABASE_KEY = "YOUR_SB_PUBLISHABLE_KEY";
+const DB_TABLE = "outfit_combos";
+```
+
+Put your actual `sb_publishable_...` key where it says `YOUR_SB_PUBLISHABLE_KEY`.
+
+---
+
+### 2. Replace ONLY this function
+
+Find:
+
+```js
+function initSupabase() {
+```
+
+Select the **entire function** you currently have, which is the one containing:
+
+```js
+const savedKey = localStorage.getItem(STORAGE_KEY);
+```
+
+Delete that whole function.
+
+Paste:
+
+```js
+function initSupabase() {
+  try {
+    supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    updateStatus(true, "Connected to Supabase");
+    fetchCombosFromSupabase();
+
+  } catch (err) {
+    console.error("Supabase init error:", err);
+    updateStatus(false, "Connection failed");
+    rawCombos = [...fallbackCombos];
+    applyFiltersAndRender();
+  }
+}
+```
+
+**That's it for now. Don't change anything else.**
+
       const dot = document.getElementById('db-status-dot');
       const text = document.getElementById('db-status-text');
       text.textContent = message;
