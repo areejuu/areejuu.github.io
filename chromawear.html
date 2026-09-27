@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ChromaWear — Cozy Outfit Color Inspiration</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Supabase JS v2 Client Library -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -19,7 +17,7 @@
       --bg-card: #ffffff;
       --bg-input: #f7f2ea;
       --bg-badge: #f3ece1;
-      
+
       --border-color: #eae1d6;
       --border-hover: #d1c2b0;
       --border-focus: #c99a82;
@@ -30,9 +28,6 @@
 
       --accent-terracotta: #c99a82;
       --accent-terracotta-hover: #b8866d;
-      --accent-sage: #889c8a;
-      --accent-rose: #db93a5;
-      --accent-gold: #d1a55a;
       --status-green: #6b9e78;
       --status-amber: #d99a4e;
 
@@ -56,14 +51,14 @@
 
     body {
       background-color: var(--bg-main);
-      background-image: 
+      background-image:
         radial-gradient(circle at 12% 15%, #f7ebe1 0%, transparent 45%),
         radial-gradient(circle at 88% 85%, #efeade 0%, transparent 45%),
         radial-gradient(circle at 50% 40%, #fefcf7 0%, transparent 60%);
       background-attachment: fixed;
       color: var(--text-espresso);
       min-height: 100vh;
-      padding: 24px 20px 60px 20px;
+      padding: 24px 20px 60px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -111,9 +106,8 @@
       gap: 8px;
     }
 
-    .brand-titles h1 span.sparkle {
+    .sparkle {
       font-size: 1.2rem;
-      color: var(--accent-terracotta);
     }
 
     .brand-subtitle {
@@ -173,10 +167,7 @@
       padding: 12px 20px;
       margin-bottom: 24px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
       box-shadow: var(--shadow-sm);
     }
 
@@ -200,51 +191,6 @@
     .status-dot.connected {
       background-color: var(--status-green);
       box-shadow: 0 0 8px rgba(107, 158, 120, 0.4);
-    }
-
-    .db-config-btn {
-      background: var(--bg-badge);
-      border: 1px solid var(--border-color);
-      padding: 6px 14px;
-      border-radius: var(--radius-pill);
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-espresso);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .db-config-btn:hover {
-      background: #eae0d2;
-    }
-
-    .db-settings-drawer {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-xl);
-      padding: 20px 24px;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow-md);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .db-settings-drawer.hidden {
-      display: none;
-    }
-
-    .db-settings-title {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      color: var(--text-espresso);
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .controls-panel {
@@ -283,7 +229,8 @@
       gap: 6px;
     }
 
-    input, select {
+    input,
+    select {
       background: var(--bg-input);
       border: 1px solid var(--border-color);
       color: var(--text-espresso);
@@ -299,7 +246,8 @@
       color: var(--text-light);
     }
 
-    input:focus, select:focus {
+    input:focus,
+    select:focus {
       border-color: var(--border-focus);
       background: #ffffff;
       box-shadow: 0 0 0 4px rgba(201, 154, 130, 0.15);
@@ -319,9 +267,6 @@
       font-size: 0.88rem;
       color: var(--text-mocha);
       font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
     .btn-group-actions {
@@ -362,7 +307,6 @@
     .action-btn.primary:hover {
       background: var(--accent-terracotta-hover);
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(201, 154, 130, 0.4);
     }
 
     .action-btn:disabled {
@@ -385,7 +329,7 @@
       display: flex;
       flex-direction: column;
       gap: 18px;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition: all 0.3s ease;
       box-shadow: var(--shadow-sm);
       position: relative;
       overflow: hidden;
@@ -398,9 +342,12 @@
       left: 0;
       right: 0;
       height: 5px;
-      background: linear-gradient(90deg, var(--card-c1, #eae1d6), var(--card-c2, #eae1d6), var(--card-c3, #eae1d6));
-      opacity: 0.85;
-      transition: height 0.2s ease;
+      background: linear-gradient(
+        90deg,
+        var(--card-c1, #eae1d6),
+        var(--card-c2, #eae1d6),
+        var(--card-c3, #eae1d6)
+      );
     }
 
     .card:hover {
@@ -440,11 +387,6 @@
     .card-pin-icon {
       color: var(--border-hover);
       font-size: 1rem;
-      transition: color 0.2s;
-    }
-
-    .card:hover .card-pin-icon {
-      color: var(--accent-terracotta);
     }
 
     .color-palette {
@@ -470,12 +412,12 @@
       border-radius: 50%;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
       border: 3px solid #ffffff;
-      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.25s ease;
       cursor: pointer;
     }
 
     .color-circle:hover {
-      transform: scale(1.15) translateY(-2px);
+      transform: scale(1.15);
     }
 
     .color-title {
@@ -527,13 +469,11 @@
       align-items: center;
       justify-content: center;
       font-size: 2rem;
-      color: var(--accent-terracotta);
     }
 
     .empty-state h3 {
       font-family: 'Outfit', sans-serif;
       font-size: 1.35rem;
-      color: var(--text-espresso);
     }
 
     .empty-state p {
@@ -560,7 +500,6 @@
     .form-header h2 {
       font-family: 'Outfit', sans-serif;
       font-size: 1.6rem;
-      color: var(--text-espresso);
       margin-bottom: 6px;
     }
 
@@ -600,11 +539,14 @@
     }
 
     @keyframes gentlePulse {
-      from { transform: translateY(-3px); box-shadow: 0 0 15px rgba(201, 154, 130, 0.25); }
-      to { transform: translateY(-8px); box-shadow: 0 0 35px rgba(201, 154, 130, 0.55); }
+      from {
+        transform: translateY(-3px);
+      }
+      to {
+        transform: translateY(-8px);
+      }
     }
 
-    /* Custom Cozy Toast Notification */
     .toast-container {
       position: fixed;
       bottom: 24px;
@@ -628,19 +570,29 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: slideIn 0.3s ease;
       max-width: 360px;
     }
 
-    .toast.success { background: #3c5443; }
-    .toast.error { background: #7a3c3c; }
-
-    @keyframes slideIn {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    .toast.success {
+      background: #3c5443;
     }
 
-    /* Spinner */
+    .toast.error {
+      background: #7a3c3c;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
     .spinner {
       display: inline-block;
       width: 16px;
@@ -652,276 +604,493 @@
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     @media (max-width: 640px) {
-      body { padding: 16px 12px 40px 12px; }
-      header { margin-bottom: 20px; }
-      .brand-titles h1 { font-size: 1.6rem; }
-      .controls-panel { padding: 18px 16px; }
-      .form-card { padding: 24px 16px; }
-      .color-selectors-3 { grid-template-columns: 1fr; }
-      .toast-container { left: 16px; right: 16px; bottom: 16px; }
-      .toast { max-width: 100%; }
+      body {
+        padding: 16px 12px 40px;
+      }
+
+      header {
+        margin-bottom: 20px;
+      }
+
+      .brand-titles h1 {
+        font-size: 1.6rem;
+      }
+
+      .controls-panel {
+        padding: 18px 16px;
+      }
+
+      .form-card {
+        padding: 24px 16px;
+      }
+
+      .color-selectors-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .toast-container {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+      }
+
+      .toast {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <header>
     <div class="brand-section">
       <div class="brand-icon">🧵</div>
+
       <div class="brand-titles">
-        <h1>ChromaWear <span class="sparkle">✨</span></h1>
-        <div class="brand-subtitle">Daily outfit color inspiration & aesthetic palettes</div>
+        <h1>
+          ChromaWear
+          <span class="sparkle">✨</span>
+        </h1>
+
+        <div class="brand-subtitle">
+          Daily outfit color inspiration & aesthetic palettes
+        </div>
       </div>
     </div>
+
     <nav>
       <button class="nav-btn active" id="nav-explore" onclick="switchView('explore')">
-        <span>🎨</span> Explore Combos
+        <span>🎨</span>
+        Explore Combos
       </button>
+
       <button class="nav-btn" id="nav-add" onclick="switchView('add')">
-        <span>➕</span> Add a Combo
+        <span>➕</span>
+        Add a Combo
       </button>
     </nav>
   </header>
 
   <main>
+
     <div class="db-status-bar">
       <div class="db-status-info">
         <span class="status-dot" id="db-status-dot"></span>
         <span id="db-status-text">Connecting to Supabase...</span>
       </div>
-      <button class="db-config-btn" onclick="toggleDbSettings()">
-        <span>⚙️</span> Supabase Key Settings
-      </button>
-    </div>
-
-    <!-- Drawer for Supabase Anon Key -->
-    <div class="db-settings-drawer hidden" id="db-settings-drawer">
-      <div class="db-settings-title">
-        <span>🗝️</span> Supabase API Key Configuration
-      </div>
-      <div style="font-size: 0.85rem; color: var(--text-mocha);">
-    ChromaWear connects to project <strong>wgbnsfftldwpdszfnehp.supabase.co</strong>. Paste your publishable/anon key below if it is not yet saved in your browser.
-      </div>
-      <div class="input-group">
-        <label for="input-anon-key">Supabase Publishable / Anon Key</label>
-        <input type="password" id="input-anon-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." />
-      </div>
-      <div style="display: flex; gap: 10px; justify-content: flex-end;">
-        <button class="action-btn" onclick="toggleDbSettings()">Cancel</button>
-        <button class="action-btn primary" onclick="saveSupabaseKey()">Save Key & Connect</button>
-      </div>
     </div>
 
     <section id="view-explore">
+
       <div class="controls-panel">
+
         <div class="controls-grid">
+
           <div class="input-group">
-            <label for="filter-search">🔍 Search Submitter</label>
-            <input type="text" id="filter-search" placeholder="Filter by submitter name..." oninput="applyFiltersAndRender()">
+            <label for="filter-search">
+              🔍 Search Submitter
+            </label>
+
+            <input
+              type="text"
+              id="filter-search"
+              placeholder="Filter by submitter name..."
+              oninput="applyFiltersAndRender()"
+            >
           </div>
 
           <div class="input-group">
-            <label for="filter-style">🧥 Style</label>
-            <select id="filter-style" onchange="applyFiltersAndRender()">
+            <label for="filter-style">
+              🧥 Style
+            </label>
+
+            <select
+              id="filter-style"
+              onchange="applyFiltersAndRender()"
+            >
               <option value="">All Styles</option>
             </select>
           </div>
 
           <div class="input-group">
-            <label for="filter-occasion">📍 Occasion</label>
-            <select id="filter-occasion" onchange="applyFiltersAndRender()">
+            <label for="filter-occasion">
+              📍 Occasion
+            </label>
+
+            <select
+              id="filter-occasion"
+              onchange="applyFiltersAndRender()"
+            >
               <option value="">All Occasions</option>
             </select>
           </div>
 
           <div class="input-group">
-            <label for="filter-sort">↕️ Sort By</label>
-            <select id="filter-sort" onchange="applyFiltersAndRender()">
+            <label for="filter-sort">
+              ↕️ Sort By
+            </label>
+
+            <select
+              id="filter-sort"
+              onchange="applyFiltersAndRender()"
+            >
               <option value="newest">Newest First</option>
               <option value="oldest">Oldest First</option>
               <option value="name_asc">Submitter (A-Z)</option>
             </select>
           </div>
+
         </div>
 
         <div class="button-row">
+
           <div class="results-count" id="results-counter">
             Showing 0 combinations
           </div>
+
           <div class="btn-group-actions">
-            <button class="action-btn primary" onclick="getRandomCombo()">
-              <span>🎲</span> Surprise Me
+
+            <button
+              class="action-btn primary"
+              onclick="getRandomCombo()"
+            >
+              <span>🎲</span>
+              Surprise Me
             </button>
-            <button class="action-btn" onclick="fetchCombosFromSupabase()">
-              <span>🔄</span> Refresh Live
+
+            <button
+              class="action-btn"
+              onclick="fetchCombosFromSupabase()"
+            >
+              <span>🔄</span>
+              Refresh Live
             </button>
-            <button class="action-btn" onclick="resetFilters()">
-              <span>🧹</span> Reset Filters
+
+            <button
+              class="action-btn"
+              onclick="resetFilters()"
+            >
+              <span>🧹</span>
+              Reset Filters
             </button>
+
           </div>
+
         </div>
+
       </div>
 
       <div id="combos-grid" class="grid"></div>
+
     </section>
 
     <section id="view-add" class="view-hidden">
+
       <div class="form-card">
+
         <div class="form-header">
           <h2>🌷 Share Your Color Outfit</h2>
-          <p>Save your favorite color palette directly to your Supabase database!</p>
+
+          <p>
+            Save your favorite color palette directly to the ChromaWear database!
+          </p>
         </div>
 
         <form id="combo-form" onsubmit="handleFormSubmit(event)">
+
           <div class="form-grid">
+
             <div class="input-group">
-              <label for="input-name">✨ Submitter Name</label>
-              <input type="text" id="input-name" maxlength="500" placeholder="e.g., Saskia" required oninput="updateCharCount()">
-              <div class="char-limit-indicator" id="char-count">0 / 500 characters</div>
+
+              <label for="input-name">
+                ✨ Submitter Name
+              </label>
+
+              <input
+                type="text"
+                id="input-name"
+                maxlength="500"
+                placeholder="e.g., Saskia"
+                required
+                oninput="updateCharCount()"
+              >
+
+              <div
+                class="char-limit-indicator"
+                id="char-count"
+              >
+                0 / 500 characters
+              </div>
+
             </div>
 
             <div class="input-group">
-              <label>🎨 Select 3 Colors for Your Outfit</label>
+
+              <label>
+                🎨 Select 3 Colors for Your Outfit
+              </label>
+
               <div class="color-selectors-3">
+
                 <select id="input-color1" required></select>
                 <select id="input-color2" required></select>
                 <select id="input-color3" required></select>
+
               </div>
+
             </div>
 
             <div class="input-group">
-              <label for="input-style">🧥 Outfit Style</label>
+
+              <label for="input-style">
+                🧥 Outfit Style
+              </label>
+
               <select id="input-style" required></select>
+
             </div>
 
             <div class="input-group">
-              <label for="input-occasion">📍 Setting / Occasion</label>
+
+              <label for="input-occasion">
+                📍 Setting / Occasion
+              </label>
+
               <select id="input-occasion" required></select>
+
             </div>
 
-            <button type="submit" id="submit-btn" class="action-btn primary" style="justify-content: center; padding: 14px; font-size: 1rem; border-radius: var(--radius-md); margin-top: 10px;">
-              <span id="submit-btn-text">💖 Save to Supabase</span>
+            <button
+              type="submit"
+              id="submit-btn"
+              class="action-btn primary"
+              style="justify-content:center; padding:14px; font-size:1rem; border-radius:var(--radius-md); margin-top:10px;"
+            >
+              <span id="submit-btn-text">
+                💖 Save to Supabase
+              </span>
             </button>
+
           </div>
+
         </form>
+
       </div>
+
     </section>
+
   </main>
 
-  <div class="toast-container" id="toast-container"></div>
+  <div
+    class="toast-container"
+    id="toast-container"
+  ></div>
 
   <script>
-    const SUPABASE_URL = "sb_publishable_oBBeJzgW9Es5qD7tSU54aw_4tCRatzH";
-const SUPABASE_KEY = "PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE";
-const DB_TABLE = "outfit_combos";
 
-    // Palette & Constants
+    /* =========================
+       SUPABASE CONFIGURATION
+       ========================= */
+
+    const SUPABASE_URL =
+      "https://wgbnsfftldwpdszfnehp.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_oBBeJzgW9Es5qD7tSU54aw_4tCRatzH";
+
+    const DB_TABLE =
+      "outfit_combos";
+
+
+    /* =========================
+       COLOR DATA
+       ========================= */
+
     const COLOR_HEX = {
-      red: '#d96b6b', orange: '#e08d60', yellow: '#e0b868', green: '#889c8a',
-      blue: '#718eab', purple: '#9e829c', violet: '#b08eb0', pink: '#db93a5',
-      burgundy: '#82444e', olive: '#8a8258', navy: '#3d4b61', denim: '#557499',
-      brown: '#8a6552', beige: '#e6d7c3', cream: '#f9f3e6', gray: '#a39993',
-      black: '#2b2522', white: '#fcfbfa', gold: '#d1a55a', silver: '#c2bab5'
+      red: '#d96b6b',
+      orange: '#e08d60',
+      yellow: '#e0b868',
+      green: '#889c8a',
+      blue: '#718eab',
+      purple: '#9e829c',
+      violet: '#b08eb0',
+      pink: '#db93a5',
+      burgundy: '#82444e',
+      olive: '#8a8258',
+      navy: '#3d4b61',
+      denim: '#557499',
+      brown: '#8a6552',
+      beige: '#e6d7c3',
+      cream: '#f9f3e6',
+      gray: '#a39993',
+      black: '#2b2522',
+      white: '#fcfbfa',
+      gold: '#d1a55a',
+      silver: '#c2bab5'
     };
+
+
+    /* =========================
+       STYLE DATA
+       ========================= */
 
     const STYLE_ICONS = {
-      casual: '👕', formal: '👔', sporty: '👟', streetwear: '🧢',
-      modest: '🧕', 'business casual': '💼', preppy: '🎒', vintage: '🕶️'
+      casual: '👕',
+      formal: '👔',
+      sporty: '👟',
+      streetwear: '🧢',
+      modest: '🧕',
+      'business casual': '💼',
+      preppy: '🎒',
+      vintage: '🕶️'
     };
 
+
+    /* =========================
+       OCCASION DATA
+       ========================= */
+
     const OCCASION_ICONS = {
-      everyday: '☕', school: '📚', work: '🏢', party: '🥳',
-      vacation: '🏖️', date: '🕯️', 'special event': '✨'
+      everyday: '☕',
+      school: '📚',
+      work: '🏢',
+      party: '🥳',
+      vacation: '🏖️',
+      date: '🕯️',
+      'special event': '✨'
     };
+
 
     const COLORS_LIST = Object.keys(COLOR_HEX);
     const STYLES_LIST = Object.keys(STYLE_ICONS);
     const OCCASIONS_LIST = Object.keys(OCCASION_ICONS);
 
-    // Initial fallback data if table is completely empty or offline
+
+    /* =========================
+       FALLBACK DATA
+       ========================= */
+
     const fallbackCombos = [
-      { name: 'Saskia', color1: 'navy', color2: 'cream', color3: 'burgundy', style: 'preppy', occasion: 'school' },
-      { name: 'Areej', color1: 'olive', color2: 'beige', color3: 'black', style: 'modest', occasion: 'everyday' },
-      { name: 'Leo', color1: 'denim', color2: 'white', color3: 'red', style: 'streetwear', occasion: 'everyday' },
-      { name: 'Maya', color1: 'pink', color2: 'gray', color3: 'white', style: 'casual', occasion: 'school' },
-      { name: 'Carlos', color1: 'black', color2: 'gold', color3: 'burgundy', style: 'formal', occasion: 'special event' }
+      {
+        name: 'Saskia',
+        color1: 'navy',
+        color2: 'cream',
+        color3: 'burgundy',
+        style: 'preppy',
+        occasion: 'school'
+      },
+      {
+        name: 'Areej',
+        color1: 'olive',
+        color2: 'beige',
+        color3: 'black',
+        style: 'modest',
+        occasion: 'everyday'
+      },
+      {
+        name: 'Leo',
+        color1: 'denim',
+        color2: 'white',
+        color3: 'red',
+        style: 'streetwear',
+        occasion: 'everyday'
+      },
+      {
+        name: 'Maya',
+        color1: 'pink',
+        color2: 'gray',
+        color3: 'white',
+        style: 'casual',
+        occasion: 'school'
+      },
+      {
+        name: 'Carlos',
+        color1: 'black',
+        color2: 'gold',
+        color3: 'burgundy',
+        style: 'formal',
+        occasion: 'special event'
+      }
     ];
+
+
+    /* =========================
+       APP STATE
+       ========================= */
 
     let supabaseClient = null;
     let rawCombos = [];
     let currentFiltered = [];
 
-   Yep. Let's make it **super simple**. You only replace **2 things**.
 
-### 1. Replace these 3 lines
+    /* =========================
+       SUPABASE CONNECTION
+       ========================= */
 
-Find:
+    function initSupabase() {
 
-```js
-const SUPABASE_URL = "https://wgbnsfftldwpdszfnehp.supabase.co";
-const DB_TABLE = "outfit_combos";
-const STORAGE_KEY = "chromawear_sb_anon_key";
-```
+      try {
 
-Replace with:
+        supabaseClient =
+          window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+          );
 
-```js
-const SUPABASE_URL = "https://wgbnsfftldwpdszfnehp.supabase.co";
-const SUPABASE_KEY = "YOUR_SB_PUBLISHABLE_KEY";
-const DB_TABLE = "outfit_combos";
-```
+        updateStatus(
+          true,
+          "Connected to Supabase"
+        );
 
-Put your actual `sb_publishable_...` key where it says `YOUR_SB_PUBLISHABLE_KEY`.
+        fetchCombosFromSupabase();
 
----
+      } catch (err) {
 
-### 2. Replace ONLY this function
+        console.error(
+          "Supabase initialization error:",
+          err
+        );
 
-Find:
+        updateStatus(
+          false,
+          "Connection failed"
+        );
 
-```js
-function initSupabase() {
-```
+        rawCombos = [...fallbackCombos];
 
-Select the **entire function** you currently have, which is the one containing:
+        applyFiltersAndRender();
+      }
+    }
 
-```js
-const savedKey = localStorage.getItem(STORAGE_KEY);
-```
 
-Delete that whole function.
+    /* =========================
+       STATUS
+       ========================= */
 
-Paste:
+    function updateStatus(
+      isConnected,
+      message
+    ) {
 
-```js
-function initSupabase() {
-  try {
-    supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
+      const dot =
+        document.getElementById(
+          'db-status-dot'
+        );
 
-    updateStatus(true, "Connected to Supabase");
-    fetchCombosFromSupabase();
+      const text =
+        document.getElementById(
+          'db-status-text'
+        );
 
-  } catch (err) {
-    console.error("Supabase init error:", err);
-    updateStatus(false, "Connection failed");
-    rawCombos = [...fallbackCombos];
-    applyFiltersAndRender();
-  }
-}
-```
-
-**That's it for now. Don't change anything else.**
-
-      const dot = document.getElementById('db-status-dot');
-      const text = document.getElementById('db-status-text');
       text.textContent = message;
+
       if (isConnected) {
         dot.classList.add('connected');
       } else {
@@ -929,320 +1098,904 @@ function initSupabase() {
       }
     }
 
-    function saveSupabaseKey() {
-      const key = document.getElementById('input-anon-key').value.trim();
-      if (!key) {
-        showToast("Please enter a valid publishable/anon key", "error");
-        return;
-      }
-      localStorage.setItem(STORAGE_KEY, key);
-      toggleDbSettings();
-      initSupabase();
-      showToast("Supabase configuration saved!", "success");
-    }
 
-    function toggleDbSettings() {
-      const drawer = document.getElementById('db-settings-drawer');
-      drawer.classList.toggle('hidden');
-    }
+    /* =========================
+       LOAD DATABASE DATA
+       ========================= */
 
     async function fetchCombosFromSupabase() {
+
       if (!supabaseClient) {
+
         rawCombos = [...fallbackCombos];
+
         applyFiltersAndRender();
+
         return;
       }
 
-      updateStatus(true, "Fetching combinations from Supabase...");
+      updateStatus(
+        true,
+        "Fetching combinations from Supabase..."
+      );
 
       try {
-        const { data, error } = await supabaseClient
+
+        const {
+          data,
+          error
+        } = await supabaseClient
           .from(DB_TABLE)
           .select('*')
-          .order('created_at', { ascending: false });
+          .order(
+            'created_at',
+            {
+              ascending: false
+            }
+          );
+
 
         if (error) {
-          console.warn("Supabase Fetch Error:", error);
-          updateStatus(false, `Supabase Error: ${error.message}`);
-          showToast(`Database error: ${error.message}`, "error");
-          // Use fallback data if table missing or restricted
-          if (rawCombos.length === 0) rawCombos = [...fallbackCombos];
+
+          console.error(
+            "Supabase Fetch Error:",
+            error
+          );
+
+          updateStatus(
+            false,
+            `Supabase Error: ${error.message}`
+          );
+
+          if (rawCombos.length === 0) {
+            rawCombos = [...fallbackCombos];
+          }
+
+          showToast(
+            `Database error: ${error.message}`,
+            "error"
+          );
+
         } else {
-          updateStatus(true, `Connected — ${data.length} combos loaded`);
+
           rawCombos = data || [];
+
+          updateStatus(
+            true,
+            `Connected — ${rawCombos.length} combos loaded`
+          );
         }
-      } catch (e) {
-        console.error("Fetch Exception:", e);
-        updateStatus(false, "Connection Failed");
+
+      } catch (error) {
+
+        console.error(
+          "Fetch exception:",
+          error
+        );
+
+        updateStatus(
+          false,
+          "Connection Failed"
+        );
+
+        if (rawCombos.length === 0) {
+          rawCombos = [...fallbackCombos];
+        }
       }
 
       applyFiltersAndRender();
     }
 
-    function applyFiltersAndRender(highlightedIndex = null) {
-      const searchVal = document.getElementById('filter-search').value.toLowerCase().trim();
-      const styleVal = document.getElementById('filter-style').value;
-      const occasionVal = document.getElementById('filter-occasion').value;
-      const sortVal = document.getElementById('filter-sort').value;
 
-      // Filter
-      let result = rawCombos.filter(item => {
-        const nameMatch = (item.name || '').toLowerCase().includes(searchVal);
-        const styleMatch = !styleVal || item.style === styleVal;
-        const occasionMatch = !occasionVal || item.occasion === occasionVal;
-        return nameMatch && styleMatch && occasionMatch;
-      });
+    /* =========================
+       FILTERING + SORTING
+       ========================= */
 
-      // Sort
+    function applyFiltersAndRender(
+      highlightedIndex = null
+    ) {
+
+      const searchVal =
+        document
+          .getElementById('filter-search')
+          .value
+          .toLowerCase()
+          .trim();
+
+      const styleVal =
+        document.getElementById(
+          'filter-style'
+        ).value;
+
+      const occasionVal =
+        document.getElementById(
+          'filter-occasion'
+        ).value;
+
+      const sortVal =
+        document.getElementById(
+          'filter-sort'
+        ).value;
+
+
+      let result =
+        rawCombos.filter(item => {
+
+          const nameMatch =
+            (item.name || '')
+              .toLowerCase()
+              .includes(searchVal);
+
+          const styleMatch =
+            !styleVal ||
+            item.style === styleVal;
+
+          const occasionMatch =
+            !occasionVal ||
+            item.occasion === occasionVal;
+
+          return (
+            nameMatch &&
+            styleMatch &&
+            occasionMatch
+          );
+        });
+
+
       if (sortVal === 'newest') {
-        result.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+
+        result.sort(
+          (a, b) =>
+            new Date(
+              b.created_at || 0
+            ) -
+            new Date(
+              a.created_at || 0
+            )
+        );
+
       } else if (sortVal === 'oldest') {
-        result.sort((a, b) => new Date(a.created_at || 0) - new Date(b.created_at || 0));
+
+        result.sort(
+          (a, b) =>
+            new Date(
+              a.created_at || 0
+            ) -
+            new Date(
+              b.created_at || 0
+            )
+        );
+
       } else if (sortVal === 'name_asc') {
-        result.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
+        result.sort(
+          (a, b) =>
+            (a.name || '').localeCompare(
+              b.name || ''
+            )
+        );
       }
 
+
       currentFiltered = result;
+
       renderGrid(highlightedIndex);
     }
 
-    function renderGrid(highlightedIndex = null) {
-      const grid = document.getElementById('combos-grid');
-      const counterEl = document.getElementById('results-counter');
 
-      counterEl.textContent = `Showing ${currentFiltered.length} outfit combination${currentFiltered.length === 1 ? '' : 's'}`;
+    /* =========================
+       RENDER CARDS
+       ========================= */
+
+    function renderGrid(
+      highlightedIndex = null
+    ) {
+
+      const grid =
+        document.getElementById(
+          'combos-grid'
+        );
+
+      const counterEl =
+        document.getElementById(
+          'results-counter'
+        );
+
+
+      counterEl.textContent =
+        `Showing ${currentFiltered.length} outfit combination${currentFiltered.length === 1 ? '' : 's'}`;
+
 
       if (currentFiltered.length === 0) {
+
         grid.innerHTML = `
           <div class="empty-state">
             <div class="empty-state-icon">🧵</div>
+
             <h3>No combinations found</h3>
-            <p>No outfits match your criteria or none have been saved yet. Be the first to share one!</p>
+
+            <p>
+              No outfits match your criteria or none have been saved yet.
+              Be the first to share one!
+            </p>
           </div>
         `;
+
         return;
       }
 
-      grid.innerHTML = currentFiltered.map((item, index) => {
-        const isSpotlight = highlightedIndex !== null && currentFiltered[highlightedIndex] === item;
-        const c1Hex = COLOR_HEX[item.color1] || '#eae1d6';
-        const c2Hex = COLOR_HEX[item.color2] || '#eae1d6';
-        const c3Hex = COLOR_HEX[item.color3] || '#eae1d6';
 
-        return `
-          <div class="card ${isSpotlight ? 'spotlight-card' : ''}" style="--card-c1: ${c1Hex}; --card-c2: ${c2Hex}; --card-c3: ${c3Hex};">
-            <div class="card-header">
-              <div class="author-info">
-                <span class="author-label">Submitted by</span>
-                <span class="author-name" title="${escapeHtml(item.name || 'Anonymous')}">${escapeHtml(item.name || 'Anonymous')}</span>
+      grid.innerHTML =
+        currentFiltered
+          .map((item, index) => {
+
+            const isSpotlight =
+              highlightedIndex !== null &&
+              currentFiltered[
+                highlightedIndex
+              ] === item;
+
+
+            const c1Hex =
+              COLOR_HEX[item.color1] ||
+              '#eae1d6';
+
+            const c2Hex =
+              COLOR_HEX[item.color2] ||
+              '#eae1d6';
+
+            const c3Hex =
+              COLOR_HEX[item.color3] ||
+              '#eae1d6';
+
+
+            return `
+              <div
+                class="card ${isSpotlight ? 'spotlight-card' : ''}"
+                style="
+                  --card-c1:${c1Hex};
+                  --card-c2:${c2Hex};
+                  --card-c3:${c3Hex};
+                "
+              >
+
+                <div class="card-header">
+
+                  <div class="author-info">
+
+                    <span class="author-label">
+                      Submitted by
+                    </span>
+
+                    <span
+                      class="author-name"
+                      title="${escapeHtml(item.name || 'Anonymous')}"
+                    >
+                      ${escapeHtml(item.name || 'Anonymous')}
+                    </span>
+
+                  </div>
+
+                  <span class="card-pin-icon">
+                    📌
+                  </span>
+
+                </div>
+
+
+                <div class="color-palette">
+
+                  ${renderSwatch(item.color1)}
+                  ${renderSwatch(item.color2)}
+                  ${renderSwatch(item.color3)}
+
+                </div>
+
+
+                <div class="card-tags">
+
+                  <span class="tag-badge">
+                    ${STYLE_ICONS[item.style] || '✨'}
+                    ${item.style || 'Casual'}
+                  </span>
+
+                  <span class="tag-badge">
+                    ${OCCASION_ICONS[item.occasion] || '📍'}
+                    ${item.occasion || 'Everyday'}
+                  </span>
+
+                </div>
+
               </div>
-              <span class="card-pin-icon">📌</span>
-            </div>
+            `;
 
-            <div class="color-palette">
-              ${renderSwatch(item.color1)}
-              ${renderSwatch(item.color2)}
-              ${renderSwatch(item.color3)}
-            </div>
-
-            <div class="card-tags">
-              <span class="tag-badge">${STYLE_ICONS[item.style] || '✨'} ${item.style || 'Casual'}</span>
-              <span class="tag-badge">${OCCASION_ICONS[item.occasion] || '📍'} ${item.occasion || 'Everyday'}</span>
-            </div>
-          </div>
-        `;
-      }).join('');
+          })
+          .join('');
     }
 
-    function renderSwatch(colorName) {
-      const hex = COLOR_HEX[colorName] || '#d1c2b0';
-      const borderStyle = ['white', 'cream', 'beige', 'yellow'].includes(colorName)
-        ? 'border: 3px solid #e0d5c5;'
-        : '';
+
+    /* =========================
+       COLOR SWATCH
+       ========================= */
+
+    function renderSwatch(
+      colorName
+    ) {
+
+      const hex =
+        COLOR_HEX[colorName] ||
+        '#d1c2b0';
+
+
+      const borderStyle =
+        [
+          'white',
+          'cream',
+          'beige',
+          'yellow'
+        ].includes(colorName)
+          ? 'border:3px solid #e0d5c5;'
+          : '';
+
 
       return `
         <div class="color-swatch-item">
-          <div class="color-circle" style="background-color: ${hex}; ${borderStyle}" title="${colorName}"></div>
-          <span class="color-title">${colorName || 'Color'}</span>
+
+          <div
+            class="color-circle"
+            style="
+              background-color:${hex};
+              ${borderStyle}
+            "
+            title="${escapeHtml(colorName || 'Color')}"
+          ></div>
+
+          <span class="color-title">
+            ${escapeHtml(colorName || 'Color')}
+          </span>
+
         </div>
       `;
     }
 
-    async function handleFormSubmit(event) {
+
+    /* =========================
+       ADD COMBO
+       ========================= */
+
+    async function handleFormSubmit(
+      event
+    ) {
+
       event.preventDefault();
 
-      const nameInput = document.getElementById('input-name');
-      const name = nameInput.value.trim();
-      const color1 = document.getElementById('input-color1').value;
-      const color2 = document.getElementById('input-color2').value;
-      const color3 = document.getElementById('input-color3').value;
-      const style = document.getElementById('input-style').value;
-      const occasion = document.getElementById('input-occasion').value;
 
-      // Validation
+      const nameInput =
+        document.getElementById(
+          'input-name'
+        );
+
+      const name =
+        nameInput.value.trim();
+
+
+      const color1 =
+        document.getElementById(
+          'input-color1'
+        ).value;
+
+      const color2 =
+        document.getElementById(
+          'input-color2'
+        ).value;
+
+      const color3 =
+        document.getElementById(
+          'input-color3'
+        ).value;
+
+      const style =
+        document.getElementById(
+          'input-style'
+        ).value;
+
+      const occasion =
+        document.getElementById(
+          'input-occasion'
+        ).value;
+
+
       if (!name) {
-        showToast("Please enter a submitter name", "error");
+
+        showToast(
+          "Please enter a submitter name",
+          "error"
+        );
+
         return;
       }
+
+
       if (name.length > 500) {
-        showToast("Name cannot exceed 500 characters", "error");
+
+        showToast(
+          "Name cannot exceed 500 characters",
+          "error"
+        );
+
         return;
       }
 
-      const submitBtn = document.getElementById('submit-btn');
-      const submitText = document.getElementById('submit-btn-text');
 
-      // Loading State
+      const submitBtn =
+        document.getElementById(
+          'submit-btn'
+        );
+
+      const submitText =
+        document.getElementById(
+          'submit-btn-text'
+        );
+
+
       submitBtn.disabled = true;
-      submitText.innerHTML = `<span class="spinner"></span> Saving combo...`;
 
-      const newCombo = { name, color1, color2, color3, style, occasion };
+      submitText.innerHTML =
+        `<span class="spinner"></span> Saving combo...`;
 
-      if (supabaseClient) {
-        try {
-          const { data, error } = await supabaseClient
-            .from(DB_TABLE)
-            .insert([newCombo])
-            .select();
 
-          if (error) {
-            console.error("Supabase Insert Error:", error);
-            showToast(`Error saving to database: ${error.message}`, "error");
+      const newCombo = {
+        name,
+        color1,
+        color2,
+        color3,
+        style,
+        occasion
+      };
+
+
+      try {
+
+        const {
+          data,
+          error
+        } = await supabaseClient
+          .from(DB_TABLE)
+          .insert([newCombo])
+          .select();
+
+
+        if (error) {
+
+          console.error(
+            "Supabase Insert Error:",
+            error
+          );
+
+          showToast(
+            `Error saving to database: ${error.message}`,
+            "error"
+          );
+
+        } else {
+
+          showToast(
+            "Outfit combination saved! ✨",
+            "success"
+          );
+
+
+          if (
+            data &&
+            data.length > 0
+          ) {
+
+            rawCombos.unshift(
+              data[0]
+            );
+
           } else {
-            showToast("Outfit combination saved to Supabase! ✨", "success");
-            if (data && data.length > 0) {
-              rawCombos.unshift(data[0]);
-            } else {
-              rawCombos.unshift(newCombo);
-            }
+
+            rawCombos.unshift(
+              newCombo
+            );
           }
-        } catch (err) {
-          console.error("Save Exception:", err);
-          showToast("Network error while saving combo", "error");
-          rawCombos.unshift(newCombo);
+
+
+          updateStatus(
+            true,
+            `Connected — ${rawCombos.length} combos loaded`
+          );
+
+
+          document
+            .getElementById('combo-form')
+            .reset();
+
+          updateCharCount();
+
+          switchView('explore');
+
+          applyFiltersAndRender(0);
         }
-      } else {
-        // Fallback local insert
-        rawCombos.unshift(newCombo);
-        showToast("Combo added locally (Supabase key required to persist)", "success");
+
+      } catch (error) {
+
+        console.error(
+          "Save exception:",
+          error
+        );
+
+        showToast(
+          "Network error while saving combo",
+          "error"
+        );
+
+      } finally {
+
+        submitBtn.disabled = false;
+
+        submitText.innerHTML =
+          `💖 Save to Supabase`;
       }
-
-      // Restore button
-      submitBtn.disabled = false;
-      submitText.innerHTML = `💖 Save to Supabase`;
-
-      // Reset Form
-      document.getElementById('combo-form').reset();
-      updateCharCount();
-      switchView('explore');
-      applyFiltersAndRender(0);
     }
+
+
+    /* =========================
+       RANDOM COMBO
+       ========================= */
 
     function getRandomCombo() {
+
       if (currentFiltered.length === 0) {
-        showToast("No outfit combos available to select", "error");
+
+        showToast(
+          "No outfit combos available to select",
+          "error"
+        );
+
         return;
       }
-      resetFilters();
-      const randomIndex = Math.floor(Math.random() * currentFiltered.length);
-      applyFiltersAndRender(randomIndex);
 
-      const grid = document.getElementById('combos-grid');
-      grid.scrollIntoView({ behavior: 'smooth' });
+
+      resetFilters();
+
+
+      const randomIndex =
+        Math.floor(
+          Math.random() *
+          currentFiltered.length
+        );
+
+
+      applyFiltersAndRender(
+        randomIndex
+      );
+
+
+      const grid =
+        document.getElementById(
+          'combos-grid'
+        );
+
+      grid.scrollIntoView({
+        behavior: 'smooth'
+      });
     }
 
+
+    /* =========================
+       RESET FILTERS
+       ========================= */
+
     function resetFilters() {
-      document.getElementById('filter-search').value = '';
-      document.getElementById('filter-style').value = '';
-      document.getElementById('filter-occasion').value = '';
-      document.getElementById('filter-sort').value = 'newest';
+
+      document.getElementById(
+        'filter-search'
+      ).value = '';
+
+      document.getElementById(
+        'filter-style'
+      ).value = '';
+
+      document.getElementById(
+        'filter-occasion'
+      ).value = '';
+
+      document.getElementById(
+        'filter-sort'
+      ).value = 'newest';
+
+
       applyFiltersAndRender();
     }
 
+
+    /* =========================
+       CHARACTER COUNT
+       ========================= */
+
     function updateCharCount() {
-      const input = document.getElementById('input-name');
-      const count = document.getElementById('char-count');
-      count.textContent = `${input.value.length} / 500 characters`;
+
+      const input =
+        document.getElementById(
+          'input-name'
+        );
+
+      const count =
+        document.getElementById(
+          'char-count'
+        );
+
+
+      count.textContent =
+        `${input.value.length} / 500 characters`;
     }
 
-    function switchView(viewName) {
-      const exploreView = document.getElementById('view-explore');
-      const addView = document.getElementById('view-add');
-      const navExplore = document.getElementById('nav-explore');
-      const navAdd = document.getElementById('nav-add');
+
+    /* =========================
+       SWITCH VIEWS
+       ========================= */
+
+    function switchView(
+      viewName
+    ) {
+
+      const exploreView =
+        document.getElementById(
+          'view-explore'
+        );
+
+      const addView =
+        document.getElementById(
+          'view-add'
+        );
+
+      const navExplore =
+        document.getElementById(
+          'nav-explore'
+        );
+
+      const navAdd =
+        document.getElementById(
+          'nav-add'
+        );
+
 
       if (viewName === 'explore') {
-        exploreView.classList.remove('view-hidden');
-        addView.classList.add('view-hidden');
-        navExplore.classList.add('active');
-        navAdd.classList.remove('active');
+
+        exploreView.classList.remove(
+          'view-hidden'
+        );
+
+        addView.classList.add(
+          'view-hidden'
+        );
+
+        navExplore.classList.add(
+          'active'
+        );
+
+        navAdd.classList.remove(
+          'active'
+        );
+
       } else {
-        addView.classList.remove('view-hidden');
-        exploreView.classList.add('view-hidden');
-        navAdd.classList.add('active');
-        navExplore.classList.remove('active');
+
+        addView.classList.remove(
+          'view-hidden'
+        );
+
+        exploreView.classList.add(
+          'view-hidden'
+        );
+
+        navAdd.classList.add(
+          'active'
+        );
+
+        navExplore.classList.remove(
+          'active'
+        );
       }
     }
 
+
+    /* =========================
+       DROPDOWNS
+       ========================= */
+
     function initDropdowns() {
-      const styleFilter = document.getElementById('filter-style');
-      const occasionFilter = document.getElementById('filter-occasion');
-      const inputStyle = document.getElementById('input-style');
-      const inputOccasion = document.getElementById('input-occasion');
 
-      STYLES_LIST.forEach(style => {
-        const opt = `<option value="${style}">${STYLE_ICONS[style]} ${capitalize(style)}</option>`;
-        styleFilter.innerHTML += opt;
-        inputStyle.innerHTML += opt;
+      const styleFilter =
+        document.getElementById(
+          'filter-style'
+        );
+
+      const occasionFilter =
+        document.getElementById(
+          'filter-occasion'
+        );
+
+      const inputStyle =
+        document.getElementById(
+          'input-style'
+        );
+
+      const inputOccasion =
+        document.getElementById(
+          'input-occasion'
+        );
+
+
+      STYLES_LIST.forEach(
+        style => {
+
+          const opt =
+            `<option value="${style}">
+              ${STYLE_ICONS[style]}
+              ${capitalize(style)}
+            </option>`;
+
+          styleFilter.innerHTML += opt;
+          inputStyle.innerHTML += opt;
+        }
+      );
+
+
+      OCCASIONS_LIST.forEach(
+        occasion => {
+
+          const opt =
+            `<option value="${occasion}">
+              ${OCCASION_ICONS[occasion]}
+              ${capitalize(occasion)}
+            </option>`;
+
+          occasionFilter.innerHTML += opt;
+          inputOccasion.innerHTML += opt;
+        }
+      );
+
+
+      [
+        'input-color1',
+        'input-color2',
+        'input-color3'
+      ].forEach(id => {
+
+        const el =
+          document.getElementById(id);
+
+        COLORS_LIST.forEach(
+          color => {
+
+            el.innerHTML +=
+              `<option value="${color}">
+                ${capitalize(color)}
+              </option>`;
+          }
+        );
       });
 
-      OCCASIONS_LIST.forEach(occ => {
-        const opt = `<option value="${occ}">${OCCASION_ICONS[occ]} ${capitalize(occ)}</option>`;
-        occasionFilter.innerHTML += opt;
-        inputOccasion.innerHTML += opt;
-      });
 
-      ['input-color1', 'input-color2', 'input-color3'].forEach((id) => {
-        const el = document.getElementById(id);
-        COLORS_LIST.forEach(color => {
-          el.innerHTML += `<option value="${color}">${capitalize(color)}</option>`;
-        });
-      });
+      document.getElementById(
+        'input-color1'
+      ).value = 'navy';
 
-      document.getElementById('input-color1').value = 'navy';
-      document.getElementById('input-color2').value = 'cream';
-      document.getElementById('input-color3').value = 'burgundy';
+      document.getElementById(
+        'input-color2'
+      ).value = 'cream';
+
+      document.getElementById(
+        'input-color3'
+      ).value = 'burgundy';
     }
 
-    function showToast(message, type = 'info') {
-      const container = document.getElementById('toast-container');
-      const toast = document.createElement('div');
-      toast.className = `toast ${type}`;
-      toast.innerHTML = `<span>${type === 'success' ? '✨' : '⚠️'}</span> <span>${escapeHtml(message)}</span>`;
-      container.appendChild(toast);
+
+    /* =========================
+       TOASTS
+       ========================= */
+
+    function showToast(
+      message,
+      type = 'info'
+    ) {
+
+      const container =
+        document.getElementById(
+          'toast-container'
+        );
+
+
+      const toast =
+        document.createElement(
+          'div'
+        );
+
+
+      toast.className =
+        `toast ${type}`;
+
+
+      toast.innerHTML =
+        `
+          <span>
+            ${type === 'success'
+              ? '✨'
+              : '⚠️'}
+          </span>
+
+          <span>
+            ${escapeHtml(message)}
+          </span>
+        `;
+
+
+      container.appendChild(
+        toast
+      );
+
 
       setTimeout(() => {
+
         toast.style.opacity = '0';
-        toast.style.transform = 'translateY(10px)';
-        toast.style.transition = 'all 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
+
+        toast.style.transform =
+          'translateY(10px)';
+
+        toast.style.transition =
+          'all 0.3s ease';
+
+
+        setTimeout(
+          () => toast.remove(),
+          300
+        );
+
       }, 3500);
     }
 
+
+    /* =========================
+       HELPERS
+       ========================= */
+
     function capitalize(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
+
+      return (
+        str.charAt(0).toUpperCase() +
+        str.slice(1)
+      );
     }
 
+
     function escapeHtml(text) {
-      const div = document.createElement('div');
+
+      const div =
+        document.createElement(
+          'div'
+        );
+
       div.innerText = text;
+
       return div.innerHTML;
     }
 
+
+    /* =========================
+       START APP
+       ========================= */
+
     window.onload = () => {
+
       initDropdowns();
+
       initSupabase();
+
     };
+
   </script>
+
 </body>
 </html>
